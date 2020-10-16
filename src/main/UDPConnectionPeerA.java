@@ -13,6 +13,8 @@ public class UDPConnectionPeerA extends Thread{
 	
 	private DatagramSocket socket;
 	private PeerA peerA;
+	private int numerodepedido=1;
+	
 	
 	@Override
 	public void run() {
@@ -35,13 +37,17 @@ public class UDPConnectionPeerA extends Thread{
 				
 				String mensaje = new String(packet.getData()).trim();
 				
-				System.out.println("Datagrama recibido:"+ mensaje);
+				//System.out.println("Datagrama recibido:"+ mensaje);
 				Gson gson=new Gson();
 				Pedido pedido=gson.fromJson(mensaje, Pedido.class);
-				peerA.onMessage(pedido);
-				
-				
+				PedidoVista pedidovista;
+				pedidovista= new PedidoVista(pedido.getPedido());
+				pedidovista.setPedido(numerodepedido++);
+				peerA.onMessage(pedidovista);
 			}
+				
+				
+			
 			
 			
 			
@@ -62,7 +68,7 @@ public class UDPConnectionPeerA extends Thread{
 				()->{
 					try {
 						
-						InetAddress ip = InetAddress.getByName("192.168.1.4");
+						InetAddress ip = InetAddress.getByName("127.0.0.1");
 						DatagramPacket packet = new DatagramPacket(mensaje.getBytes(),mensaje.getBytes().length,ip,5000);
 						socket.send(packet);
 						System.out.println("mensaje enviado");
