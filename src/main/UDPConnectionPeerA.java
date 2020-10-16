@@ -69,7 +69,7 @@ public class UDPConnectionPeerA extends Thread{
 					try {
 						
 						InetAddress ip = InetAddress.getByName("127.0.0.1");
-						DatagramPacket packet = new DatagramPacket(mensaje.getBytes(),mensaje.getBytes().length,ip,5000);
+						DatagramPacket packet = new DatagramPacket(mensaje.getBytes(),mensaje.getBytes().length,ip,6000);
 						socket.send(packet);
 						System.out.println("mensaje enviado");
 					} catch (UnknownHostException e) {

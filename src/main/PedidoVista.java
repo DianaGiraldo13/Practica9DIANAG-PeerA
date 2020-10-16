@@ -1,5 +1,11 @@
 package main;
 
+
+
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
+
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -13,9 +19,17 @@ public class PedidoVista {
 	private String imagen;
 	private int posX;
 	private int posY;
+	private Date date;
+	String horapedido;
+	
 	
 	public PedidoVista(String imagen ) {
 		this.imagen=imagen;
+		date= new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+		LocalDateTime now = LocalDateTime.now();
+		horapedido=sdf.format(date);
+		
 		
 		
 		
@@ -56,21 +70,27 @@ public class PedidoVista {
 		switch(this.imagen) {
 		case "BonYurt":
 			app.image(BonYurt, posX, posY,100,100);
+			
 			break;
 			
 		case "JugoHit":
 			app.image(JugoHit, posX, posY,90,100);
+			
 			break;
 			
 		case "Perro":
 			app.image(Perro, posX, posY,110,100);
+			
 			break;
 			
 		case "Sandwich":
 			app.image(Sandwich, posX, posY,100,100);
+			
 			break;
 			
 		}
+		app.text(horapedido, posX+50, posY+120);
+		app.text("numero de orden"+" "+pedido, posX+10, posY+160);
 		
 	}
 	
